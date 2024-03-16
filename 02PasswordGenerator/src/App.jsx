@@ -31,11 +31,12 @@ function App() {
     }
 
     setPass(pass);
-  }, [length, numAllow, symbolAllow]);
+  }, [length,numAllow,symbolAllow]);
 
-  useEffect(() => {
-    passGenerator();
-  }, [passGenerator,numAllow,symbolAllow,length]);
+  useEffect(()=>{
+    passGenerator()
+  },[passGenerator,length,numAllow,symbolAllow])
+
 
   return (
     <>
