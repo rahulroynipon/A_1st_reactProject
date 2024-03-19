@@ -1,11 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import SearchBar from "./header/SearchBar.jsx";
-import useData from "./hook/useData.js";
+import Header from "./header/Header.jsx";
 import "./index.css";
+import Photo from "./AllPhoto/Photo.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <SearchBar></SearchBar>
+    <>
+      <main className="h-screen">
+        <Header />
+        <Photo />
+      </main>
+    </>
   </React.StrictMode>
 );

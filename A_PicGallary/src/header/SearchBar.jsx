@@ -30,9 +30,9 @@ function SearchBar() {
 
   return (
     <>
-      <section className="relative">
+      <section className="relative w-full mr-5">
         <form
-          className="flex border bg-slate-200"
+          className="flex border bg-stone-100"
           onSubmit={(e) => e.preventDefault()}
         >
           <input
@@ -42,6 +42,7 @@ function SearchBar() {
             className="w-full px-3 outline-none font-semibold 
             bg-transparent "
             type="search"
+            placeholder="Search photo"
           />
           <button
             className="flex gap-2 item-center justify-center
@@ -59,7 +60,7 @@ function SearchBar() {
         </form>
 
         {openSugg && inputValue && (
-          <div className="absolute max-h-[400px] overflow-y-auto w-full border px-2 transition-all duration-200">
+          <div className="absolute bg-white max-h-[400px] overflow-y-auto w-full border px-2 transition-all duration-200">
             {tags.map((item, index) => (
               <div
                 key={index}
