@@ -30,7 +30,7 @@ function SearchBar() {
 
   return (
     <>
-      <section className=" py-5 m-5 relative">
+      <section className="relative">
         <form
           className="flex border bg-slate-200"
           onSubmit={(e) => e.preventDefault()}
@@ -45,12 +45,12 @@ function SearchBar() {
           />
           <button
             className="flex gap-2 item-center justify-center
-             border py-3 px-6 bg-white hover:bg-slate-50 
+             border py-2 px-6 bg-white hover:bg-slate-50 
             text-stone-600 hover:text-stone-800 transition-all"
             type="submit"
           >
             <img
-              className="h-5 mt-1 opacity-60"
+              className="h-4 mt-1 opacity-60"
               src="./src/assets/search.svg"
               alt=""
             />
