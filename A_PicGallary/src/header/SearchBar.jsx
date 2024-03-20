@@ -30,7 +30,7 @@ function SearchBar(props) {
 
   return (
     <>
-      <section className="relative w-full mr-5">
+      <section className="relative w-full">
         <form
           className="flex border bg-stone-100"
           onSubmit={(e) => e.preventDefault()}
@@ -38,6 +38,9 @@ function SearchBar(props) {
           <input
             onChange={(e) => setInputValue(e.target.value)}
             onClick={() => setSugg(true)}
+            onKeyDown={(e) =>
+              e.key == "Enter" ? setSugg(false) : setSugg(true)
+            }
             value={inputValue}
             className="w-full px-3 outline-none font-semibold 
             bg-transparent "
