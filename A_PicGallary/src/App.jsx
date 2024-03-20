@@ -7,7 +7,7 @@ function App() {
   const [searchData, setSearchData] = useState("nature");
 
   return (
-    <main className="h-screen">
+    <main>
       <Header setSearchData={setSearchData} />
       <Photo searchData={searchData} />
     </main>
