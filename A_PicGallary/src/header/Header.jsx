@@ -1,13 +1,14 @@
-import { useState, useCallback, useEffect } from "react";
+// Header.js
+import { useState } from "react";
 import SearchBar from "./SearchBar";
 import Logo from "./logo";
 
-function Header() {
+function Header(props) {
   return (
     <>
-      <section className="flex px-5 pt-3 h-[10%">
+      <section className="flex px-5 pt-3 h-[10%]">
         <Logo />
-        <SearchBar />
+        <SearchBar setSearchData={props.setSearchData} />
       </section>
     </>
   );

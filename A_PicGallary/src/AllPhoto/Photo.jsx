@@ -1,9 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import useData from "../hook/useData";
 
-function Photo() {
-  const [dataName, setDataName] = useState("nipa");
-  const AllData = useData(dataName);
+function Photo(props) {
+  const AllData = useData(props.searchData);
 
   return (
     <>

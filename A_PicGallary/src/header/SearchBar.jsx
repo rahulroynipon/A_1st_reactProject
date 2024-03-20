@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import useData from "../hook/useData";
 
-function SearchBar() {
+function SearchBar(props) {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState([]);
   const [openSugg, setSugg] = useState(false);
@@ -45,6 +45,7 @@ function SearchBar() {
             placeholder="Search photo"
           />
           <button
+            onClick={() => props.setSearchData(inputValue)}
             className="flex gap-2 item-center justify-center
              border py-2 px-6 bg-white hover:bg-slate-50 
             text-stone-600 hover:text-stone-800 transition-all"
