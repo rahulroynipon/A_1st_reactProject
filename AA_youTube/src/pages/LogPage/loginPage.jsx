@@ -4,7 +4,7 @@ function LogSign() {
 
   return (
     <>
-      <main className="h-screen w-screen bg-[#e6e6e6]">
+      <main className="h-screen w-screen bg-[#F0F2F5]">
         <section>1</section>
         <section>
           <form className="bg-white flex flex-col m-5 p-5 rounded-md border shadow-md">
