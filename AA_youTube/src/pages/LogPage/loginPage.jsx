@@ -1,13 +1,13 @@
 function LogSign() {
   const theme = "#7150B7";
-  const btn = `py-2 px-4 mb-4 border rounded outline-none focus:ring-2 focus:ring-${theme}`;
+  const btn = `py-3 px-4 mb-4 border border-gray-300 rounded outline-none focus:ring-2 focus:ring-${theme}`;
 
   return (
     <>
-      <main className="h-screen w-screen bg-[#e2e2e2d2]">
+      <main className="h-screen w-screen bg-[#e6e6e6]">
         <section>1</section>
         <section>
-          <form className="bg-white flex flex-col m-5 p-5 rounded-md border shadow-xl">
+          <form className="bg-white flex flex-col m-5 p-5 rounded-md border shadow-md">
             {/* input userName */}
             <input
               className={btn}
@@ -30,11 +30,11 @@ function LogSign() {
             <p className="text-center text-[#7150B7] hover:underline">
               Forgotten password?
             </p>
-            <hr className="my-4" />
+            <hr className="my-4 border border-gray-300" />
 
             {/* creat new account */}
             <input
-              className="bg-[#3eb227] py-2 rounded text-white text-lg font-bold"
+              className="bg-[#3eb227] hover:bg-[#3ca626] transition-all my-3 py-2 rounded text-white text-lg font-bold"
               type="button"
               value="Create new account"
             />
