@@ -19,12 +19,20 @@ function LogSign() {
             <input className={btn} type="password" placeholder="Password" />
 
             {/* log in button */}
-            <input
-              className="px-4 py-2 border rounded font-bold text-white text-xl bg-[#7150B7]
-               hover:bg-[#765cad] transition-all mb-4"
-              type="submit"
-              value="Log in"
-            />
+            <section className="flex gap-2">
+              <input
+                className="px-4 py-2 border rounded font-bold text-white text-xl bg-[#7150B7]
+               hover:bg-[#765cad] transition-all mb-4 w-full"
+                type="submit"
+                value="Log in"
+              />
+              <input
+                className="px-4 py-2 border rounded font-bold text-white text-xl bg-[#7150B7]
+               hover:bg-[#765cad] transition-all mb-4 w-full"
+                type="submit"
+                value="Demo Log in"
+              />
+            </section>
 
             {/* forgotten password */}
             <p className="text-center text-[#7150B7] hover:underline">
