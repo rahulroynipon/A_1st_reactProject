@@ -33,7 +33,11 @@ function LogSign() {
             <hr className="my-4" />
 
             {/* creat new account */}
-            <input className="" type="button" value="Create new account" />
+            <input
+              className="bg-[#3eb227] py-2 rounded text-white text-lg font-bold"
+              type="button"
+              value="Create new account"
+            />
           </form>
         </section>
       </main>
