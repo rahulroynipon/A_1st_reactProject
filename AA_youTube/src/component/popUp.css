@@ -1,0 +1,13 @@
+.animation {
+  animation-name: popUp;
+  animation-duration: 600ms;
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100;
+  }
+}
