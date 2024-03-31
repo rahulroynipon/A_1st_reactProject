@@ -2,6 +2,8 @@ import SignUp from "./component/signUp";
 import { useState } from "react";
 import SideAlert from "./../../component/sideAlert";
 import notifi from "/src/assets/notification.svg";
+import Forgotten from "./component/forgotten";
+import App from "./../../../../03moneyExcence/moneyEx/src/App";
 
 function LogSign() {
   const theme = "#7150B7";
@@ -9,6 +11,7 @@ function LogSign() {
 
   const [createID, setCreateID] = useState(false);
   const [IDstatus, setIdstatus] = useState(false);
+  const [forStatus, setForStatus] = useState(false);
 
   // Function to close the side alert after 2 seconds
   const handleCloseSideAlert = () => {
@@ -63,6 +66,7 @@ function LogSign() {
 
             {/* forgotten password */}
             <p
+              onClick={() => setForStatus(true)}
               className={`text-center text-[#7150B7] hover:underline cursor-pointer`}
             >
               Forgotten password?
@@ -100,6 +104,7 @@ function LogSign() {
         )}
         {/* Close the side alert after 2 seconds */}
         {IDstatus && handleCloseSideAlert()}
+        <Forgotten forStatus={forStatus} setForStatus={setForStatus} />
       </main>
     </>
   );
