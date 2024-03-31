@@ -3,7 +3,6 @@ import { useState } from "react";
 import SideAlert from "./../../component/sideAlert";
 import notifi from "/src/assets/notification.svg";
 import Forgotten from "./component/forgotten";
-import App from "./../../../../03moneyExcence/moneyEx/src/App";
 import NewPass from "./component/newPass";
 
 function LogSign() {
@@ -14,6 +13,7 @@ function LogSign() {
   const [IDstatus, setIdstatus] = useState(false);
   const [forStatus, setForStatus] = useState(false);
   const [newPassPage, setpassPage] = useState(false);
+  const [changeStatus, setChange] = useState(false);
 
   // Function to close the side alert after 2 seconds
   const handleCloseSideAlert = () => {
@@ -113,7 +113,18 @@ function LogSign() {
         />
 
         {newPassPage && (
-          <NewPass newPassPage={newPassPage} setpassPage={setpassPage} />
+          <NewPass
+            newPassPage={newPassPage}
+            setpassPage={setpassPage}
+            setChange={setChange}
+          />
+        )}
+        {changeStatus && (
+          <SideAlert
+            icon={notifi}
+            note={"password changed successful"}
+            color={"bg-green-500"}
+          />
         )}
       </main>
     </>
