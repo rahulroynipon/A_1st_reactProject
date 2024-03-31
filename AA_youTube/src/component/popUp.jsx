@@ -15,7 +15,7 @@ function PopUp({ Title, Click, setClick, Section }) {
         >
           <img className="h-8 opacity-30" src={Close} />
         </button>
-        <div className="text-2xl font-bold px-5 pt-4 cursor-pointer">
+        <div className="text-3xl font-bold px-5 pt-4 cursor-pointer">
           {Title}
         </div>
         {Section}
