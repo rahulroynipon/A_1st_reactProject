@@ -9,7 +9,7 @@ function LogSign() {
   const btn = `px-4 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[#7150B7]`;
 
   const [createID, setCreateID] = useState(false);
-  const [IDstatus, setIdstatus] = useState(true);
+  const [IDstatus, setIdstatus] = useState(false);
 
   // Function to close the side alert after 2 seconds
   const handleCloseSideAlert = () => {
@@ -18,7 +18,7 @@ function LogSign() {
 
   return (
     <>
-      <main className="h-screen w-screen bg-[#F0F2F5] flex flex-col lg:flex-row lg:gap-20 items-center justify-center">
+      <main className=" h-screen w-screen bg-[#F0F2F5] flex flex-col lg:flex-row lg:gap-20 items-center justify-center">
         <section className="flex flex-col items-center lg:items-start">
           <h1
             className={`text-5xl lg:text-6xl font-bold text-[#7150B7] cursor-default`}

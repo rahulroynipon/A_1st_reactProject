@@ -1,7 +1,18 @@
 import Close from "/src/assets/close.svg";
+import SideAlert from "./sideAlert";
 import "./component.css";
 
-function PopUp({ css, Title, Click, setClick, Section }) {
+function PopUp({
+  css,
+  Title,
+  Click,
+  setClick,
+  Section,
+  misData,
+  error,
+  note,
+  color,
+}) {
   return (
     <main
       className={`${
@@ -22,6 +33,8 @@ function PopUp({ css, Title, Click, setClick, Section }) {
         </div>
         {Section}
       </section>
+
+      {misData && <SideAlert icon={error} note={note} color={color} />}
     </main>
   );
 }

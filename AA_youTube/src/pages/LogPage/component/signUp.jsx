@@ -1,5 +1,7 @@
 import PopUp from "../../../component/popUp";
 import React, { useState } from "react";
+import SideAlert from "../../../component/sideAlert";
+import error from "/src/assets/error.svg";
 
 function SignUp({ createID, setCreateID, setIdstatus }) {
   const theme = "#7150B7";
@@ -34,6 +36,12 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
   const [surname, setSurname] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
+  const [misData, setmisData] = useState(false);
+
+  // Function to close the side alert after 2 seconds
+  const handleCloseSideAlert = () => {
+    setTimeout(() => setmisData(false), 1500);
+  };
 
   const submitHandeler = () => {
     if (firstName != "" && surname != "" && mobile != "" && password != "") {
@@ -48,6 +56,9 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
       localStorage.setItem("userID", JSON.stringify(userID));
       setCreateID(false);
       setIdstatus(true);
+    } else {
+      setmisData(true);
+      handleCloseSideAlert();
     }
   };
   // Reset input fields when createID is false
@@ -66,6 +77,10 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
       Title={"Sign Up"}
       Click={createID}
       setClick={setCreateID}
+      misData={misData}
+      error={error}
+      note={"fill all the information properly"}
+      color={"bg-red-400"}
       Section={
         <>
           <p className="px-5 opacity-60 pt-1">It's quick and easy</p>
