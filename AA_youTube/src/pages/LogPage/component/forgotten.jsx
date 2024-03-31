@@ -1,20 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PopUp from "./../../../component/popUp";
 import error from "/src/assets/error.svg";
 import right from "/src/assets/right.svg";
 
-function Forgotten({ forStatus, setForStatus }) {
+function Forgotten({ forStatus, setForStatus, setpassPage }) {
   const theme = "#7150B7";
   const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
   const [searchData, setSearchData] = useState("");
   const [found, setFound] = useState(false);
   const [searchClick, setSearchClick] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userID"));
+  const buttonRef = useRef(null);
 
   const searchHandler = () => {
-    if (searchData != "") {
+    if (searchData.trim() !== "") {
       setSearchClick(true);
-      if (userData && userData.mobile === searchData) {
+      if (buttonRef.current.innerText === "Next") {
+        setSearchClick(false);
+        setForStatus(false);
+        setpassPage(true);
+      } else if (
+        userData &&
+        buttonRef.current.innerText === "Search" &&
+        userData.mobile === searchData
+      ) {
         setFound(true);
       } else {
         setFound(false);
@@ -32,6 +41,7 @@ function Forgotten({ forStatus, setForStatus }) {
   useEffect(() => {
     if (!forStatus) {
       setSearchData("");
+      buttonRef.current.innerText = "Search";
     }
   }, [forStatus]);
 
@@ -65,6 +75,7 @@ function Forgotten({ forStatus, setForStatus }) {
                 required
               />
               <button
+                ref={buttonRef}
                 onClick={searchHandler}
                 className={`${btn} py-2 w-24 bg-[${theme}] hover:bg-[#684ba7] text-white font-semibold`}
               >

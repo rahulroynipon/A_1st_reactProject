@@ -12,6 +12,7 @@ function LogSign() {
   const [createID, setCreateID] = useState(false);
   const [IDstatus, setIdstatus] = useState(false);
   const [forStatus, setForStatus] = useState(false);
+  const [newPassPage, setpassPage] = useState(false);
 
   // Function to close the side alert after 2 seconds
   const handleCloseSideAlert = () => {
@@ -104,7 +105,11 @@ function LogSign() {
         )}
         {/* Close the side alert after 2 seconds */}
         {IDstatus && handleCloseSideAlert()}
-        <Forgotten forStatus={forStatus} setForStatus={setForStatus} />
+        <Forgotten
+          forStatus={forStatus}
+          setForStatus={setForStatus}
+          setpassPage={setpassPage}
+        />
       </main>
     </>
   );
