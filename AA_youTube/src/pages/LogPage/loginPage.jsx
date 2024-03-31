@@ -1,8 +1,12 @@
 import SignUp from "./component/signUp";
+import PopUp from "./../../component/popUp";
+import { useState } from "react";
 
 function LogSign() {
   const theme = "#7150B7";
-  const btn = `py-3 px-4 mb-4 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
+  const btn = `px-4 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
+
+  const [createID, setCreateID] = useState(false);
 
   return (
     <>
@@ -24,13 +28,17 @@ function LogSign() {
           >
             {/* input userName */}
             <input
-              className={btn}
+              className={`${btn} py-3 mb-4`}
               type="text"
               placeholder="Email address or phone number"
             />
 
             {/* input password */}
-            <input className={btn} type="password" placeholder="Password" />
+            <input
+              className={`${btn} py-3 mb-4`}
+              type="password"
+              placeholder="Password"
+            />
 
             {/* log in buttons */}
             <section className="flex gap-2">
@@ -47,7 +55,9 @@ function LogSign() {
             </section>
 
             {/* forgotten password */}
-            <p className="text-center text-[#7150B7] hover:underline cursor-pointer">
+            <p
+              className={`text-center text-[${theme}] hover:underline cursor-pointer`}
+            >
               Forgotten password?
             </p>
             <hr className={`my-4 border`} />
@@ -57,6 +67,7 @@ function LogSign() {
               className={`bg-[#3eb227] cursor-pointer hover:bg-[#3ca626] transition-all my-3 py-3 rounded text-white text-lg font-bold`}
               type="button"
               value="Create new account"
+              onClick={() => setCreateID(true)}
             />
           </form>
 
@@ -64,6 +75,43 @@ function LogSign() {
             Create a Page for a celebrity, brand, or business.
           </p>
         </section>
+        <PopUp
+          Title={"Sign Up"}
+          Click={createID}
+          setClick={setCreateID}
+          Section={
+            <>
+              <p className="px-5 opacity-60">It's quick and easy</p>
+              <hr className="my-3" />
+              <main className="px-5">
+                <div className="flex gap-2">
+                  <input
+                    className={`${btn} py-2 mb-3 bg-gray-100`}
+                    type="text"
+                    placeholder="First name"
+                  />
+
+                  <input
+                    className={`${btn} py-2 mb-3 bg-gray-100`}
+                    type="text"
+                    placeholder="Surname"
+                  />
+                </div>
+                <input
+                  className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
+                  type="text"
+                  placeholder="Mobile number or email address"
+                />
+
+                <input
+                  className={`${btn} py-2 bg-gray-100 w-full`}
+                  type="password"
+                  placeholder="new password"
+                />
+              </main>
+            </>
+          }
+        />
       </main>
     </>
   );
