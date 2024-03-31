@@ -1,12 +1,20 @@
 import SignUp from "./component/signUp";
 import PopUp from "./../../component/popUp";
 import { useState } from "react";
+import SideAlert from "./../../component/sideAlert";
+import notifi from "/src/assets/notification.svg";
 
 function LogSign() {
   const theme = "#7150B7";
   const btn = `px-4 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[#7150B7]`;
 
   const [createID, setCreateID] = useState(false);
+  const [IDstatus, setIdstatus] = useState(true);
+
+  // Function to close the side alert after 2 seconds
+  const handleCloseSideAlert = () => {
+    setTimeout(() => setIdstatus(false), 1500);
+  };
 
   return (
     <>
@@ -75,7 +83,24 @@ function LogSign() {
             Create a Page for a celebrity, brand, or business.
           </p>
         </section>
-        <SignUp createID={createID} setCreateID={setCreateID} />
+
+        {/* all function start here */}
+        <SignUp
+          createID={createID}
+          setCreateID={setCreateID}
+          setIdstatus={setIdstatus}
+        />
+
+        {/* all function end here */}
+        {IDstatus && (
+          <SideAlert
+            icon={notifi}
+            note={"Your account is created successfully"}
+            color={"bg-green-500"}
+          />
+        )}
+        {/* Close the side alert after 2 seconds */}
+        {IDstatus && handleCloseSideAlert()}
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import PopUp from "../../../component/popUp";
 import React, { useState } from "react";
 
-function SignUp({ createID, setCreateID }) {
+function SignUp({ createID, setCreateID, setIdstatus }) {
   const theme = "#7150B7";
   const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
 
@@ -36,16 +36,19 @@ function SignUp({ createID, setCreateID }) {
   const [password, setPassword] = useState("");
 
   const submitHandeler = () => {
-    const userID = {
-      firstName: firstName,
-      lastName: surname,
-      fullName: firstName + " " + surname,
-      pass: password,
-      mobile: mobile,
-    };
+    if (firstName != "" && surname != "" && mobile != "" && password != "") {
+      const userID = {
+        firstName: firstName,
+        lastName: surname,
+        fullName: firstName + " " + surname,
+        pass: password,
+        mobile: mobile,
+      };
 
-    localStorage.setItem("userID", JSON.stringify(userID));
-    setCreateID(false);
+      localStorage.setItem("userID", JSON.stringify(userID));
+      setCreateID(false);
+      setIdstatus(true);
+    }
   };
   // Reset input fields when createID is false
   React.useEffect(() => {
@@ -67,7 +70,10 @@ function SignUp({ createID, setCreateID }) {
         <>
           <p className="px-5 opacity-60 pt-1">It's quick and easy</p>
           <hr className="my-4 border" />
-          <main className="px-5 flex flex-col">
+          <form
+            onSubmit={(e) => e.preventDefault()}
+            className="px-5 flex flex-col"
+          >
             <div className="flex gap-2">
               <input
                 className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
@@ -163,7 +169,7 @@ function SignUp({ createID, setCreateID }) {
             >
               Sign Up
             </button>
-          </main>
+          </form>
         </>
       }
     />

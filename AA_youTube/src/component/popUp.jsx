@@ -1,5 +1,5 @@
 import Close from "/src/assets/close.svg";
-import "./popUp.css";
+import "./component.css";
 
 function PopUp({ css, Title, Click, setClick, Section }) {
   return (

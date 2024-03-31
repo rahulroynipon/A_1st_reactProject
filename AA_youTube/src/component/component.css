@@ -8,18 +8,32 @@
   animation-duration: 600ms;
 }
 
+.sideNote {
+  animation-name: addsideNote;
+  animation-duration: 1.5s;
+}
+
+@keyframes addsideNote {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
 @keyframes popUp {
   from {
     opacity: 0;
   }
   to {
-    opacity: 100;
+    opacity: 1;
   }
 }
 
 @keyframes popUpRemove {
   from {
-    opacity: 100;
+    opacity: 1;
   }
   to {
     opacity: 0;
