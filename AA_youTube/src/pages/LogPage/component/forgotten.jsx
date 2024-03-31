@@ -16,9 +16,9 @@ function Forgotten({ forStatus, setForStatus, setpassPage }) {
     if (searchData.trim() !== "") {
       setSearchClick(true);
       if (buttonRef.current.innerText === "Next") {
+        setpassPage(true);
         setSearchClick(false);
         setForStatus(false);
-        setpassPage(true);
       } else if (
         userData &&
         buttonRef.current.innerText === "Search" &&
@@ -41,7 +41,7 @@ function Forgotten({ forStatus, setForStatus, setpassPage }) {
   useEffect(() => {
     if (!forStatus) {
       setSearchData("");
-      buttonRef.current.innerText = "Search";
+      setFound(false);
     }
   }, [forStatus]);
 

@@ -4,6 +4,7 @@ import SideAlert from "./../../component/sideAlert";
 import notifi from "/src/assets/notification.svg";
 import Forgotten from "./component/forgotten";
 import App from "./../../../../03moneyExcence/moneyEx/src/App";
+import NewPass from "./component/newPass";
 
 function LogSign() {
   const theme = "#7150B7";
@@ -110,6 +111,10 @@ function LogSign() {
           setForStatus={setForStatus}
           setpassPage={setpassPage}
         />
+
+        {newPassPage && (
+          <NewPass newPassPage={newPassPage} setpassPage={setpassPage} />
+        )}
       </main>
     </>
   );
