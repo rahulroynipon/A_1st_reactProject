@@ -1,6 +1,6 @@
 import PopUp from "../../../component/popUp";
 import React, { useState } from "react";
-import SideAlert from "../../../component/sideAlert";
+
 import error from "/src/assets/error.svg";
 
 function SignUp({ createID, setCreateID, setIdstatus }) {

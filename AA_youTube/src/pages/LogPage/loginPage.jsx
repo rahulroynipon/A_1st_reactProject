@@ -1,5 +1,4 @@
 import SignUp from "./component/signUp";
-import PopUp from "./../../component/popUp";
 import { useState } from "react";
 import SideAlert from "./../../component/sideAlert";
 import notifi from "/src/assets/notification.svg";
