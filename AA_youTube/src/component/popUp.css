@@ -1,5 +1,10 @@
-.animation {
+.animationAdd {
   animation-name: popUp;
+  animation-duration: 600ms;
+}
+
+.animationRemove {
+  animation-name: popUpRemove;
   animation-duration: 600ms;
 }
 
@@ -9,5 +14,14 @@
   }
   to {
     opacity: 100;
+  }
+}
+
+@keyframes popUpRemove {
+  from {
+    opacity: 100;
+  }
+  to {
+    opacity: 0;
   }
 }

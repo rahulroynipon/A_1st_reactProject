@@ -1,4 +1,5 @@
 import PopUp from "../../../component/popUp";
+import React, { useState } from "react";
 
 function SignUp({ createID, setCreateID }) {
   const theme = "#7150B7";
@@ -26,7 +27,35 @@ function SignUp({ createID, setCreateID }) {
     years.push(currentYear - i);
   }
 
-  const Genger = ["Female", "Male", "Other"];
+  const Gender = ["Female", "Male", "Other"];
+
+  // State variables for input values
+  const [firstName, setFirstName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [password, setPassword] = useState("");
+
+  const submitHandeler = () => {
+    const userID = {
+      firstName: firstName,
+      lastName: surname,
+      fullName: firstName + " " + surname,
+      pass: password,
+      mobile: mobile,
+    };
+
+    localStorage.setItem("userID", JSON.stringify(userID));
+    setCreateID(false);
+  };
+  // Reset input fields when createID is false
+  React.useEffect(() => {
+    if (!createID) {
+      setFirstName("");
+      setSurname("");
+      setMobile("");
+      setPassword("");
+    }
+  }, [createID]);
 
   return (
     <PopUp
@@ -44,12 +73,16 @@ function SignUp({ createID, setCreateID }) {
                 className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
                 type="text"
                 placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
                 required
               />
               <input
                 className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
                 type="text"
                 placeholder="Surname"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
                 required
               />
             </div>
@@ -58,12 +91,16 @@ function SignUp({ createID, setCreateID }) {
               className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
               type="text"
               placeholder="Mobile number or email address"
+              value={mobile}
+              onChange={(e) => setMobile(e.target.value)}
               required
             />
             <input
               className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
               type="password"
               placeholder="New password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
 
@@ -96,7 +133,7 @@ function SignUp({ createID, setCreateID }) {
             {/* gender */}
             <p className="font-light text-sm">Gender</p>
             <div className="flex gap-3 mb-3">
-              {Genger.map((item, index) => (
+              {Gender.map((item, index) => (
                 <label
                   htmlFor={item}
                   key={index}
@@ -108,7 +145,7 @@ function SignUp({ createID, setCreateID }) {
               ))}
             </div>
 
-            {/* tream and condition */}
+            {/* terms and conditions */}
             <p className="text-[12px] font-thin">
               People who use our service may have uploaded your contact
               information to Friendzone. Learn more.
@@ -121,7 +158,7 @@ function SignUp({ createID, setCreateID }) {
             </p>
 
             <button
-              onClick={() => setCreateID(false)}
+              onClick={submitHandeler}
               className={`${btn}  mt-5 py-1 px-10 bg-[#3eb227] hover:bg-[#3ca626] font-bold text-xl text-white`}
             >
               Sign Up

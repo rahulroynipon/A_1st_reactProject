@@ -5,17 +5,17 @@ function PopUp({ css, Title, Click, setClick, Section }) {
   return (
     <main
       className={`${
-        Click ? "flex" : "hidden"
-      }  absolute inset-0 backdrop-blur  items-center justify-center`}
+        Click ? "flex animationAdd" : "hidden animationRemove"
+      } absolute inset-0 backdrop-blur items-center justify-center`}
     >
       <section
-        className={`${css} animation relative border pb-5 bg-white shadow rounded-lg`}
+        className={`${css} relative border pb-5 bg-white shadow rounded-lg`}
       >
         <button
           onClick={() => setClick(false)}
           className="absolute right-3 top-2 rounded-full hover:bg-gray-200 transition-all duration-300 hover:scale-110"
         >
-          <img className="h-8 opacity-30" src={Close} />
+          <img className="h-8 opacity-30" src={Close} alt="Close" />
         </button>
         <div className="text-3xl font-bold px-5 pt-4 cursor-pointer">
           {Title}
