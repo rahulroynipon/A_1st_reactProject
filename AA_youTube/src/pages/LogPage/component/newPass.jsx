@@ -12,7 +12,7 @@ function NewPass({ newPassPage, setpassPage, setChange, setNotChange }) {
 
   const submitHandler = () => {
     if (newPass !== "" && rePass !== "" && typeOTP !== "") {
-      if (newPass == rePass && typeOTP == generatedOTP) {
+      if (newPass === rePass && typeOTP === generatedOTP) {
         setChange(true);
       } else {
         setNotChange(true);
