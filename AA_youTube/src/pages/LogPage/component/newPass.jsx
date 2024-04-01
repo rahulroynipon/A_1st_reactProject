@@ -2,7 +2,7 @@ import passIcon from "/src/assets/password.svg";
 import PopUp from "../../../component/popUp";
 import { useCallback, useEffect, useState } from "react";
 
-function NewPass({ newPassPage, setpassPage, setChange }) {
+function NewPass({ newPassPage, setpassPage, setChange, setNotChange }) {
   const theme = "#7150B7";
   const btn = `px-4 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
   const [newPass, setPass] = useState("");
@@ -14,6 +14,8 @@ function NewPass({ newPassPage, setpassPage, setChange }) {
     if (newPass !== "" && rePass !== "" && typeOTP !== "") {
       if (newPass == rePass && typeOTP == generatedOTP) {
         setChange(true);
+      } else {
+        setNotChange(true);
       }
       setpassPage(false);
     }

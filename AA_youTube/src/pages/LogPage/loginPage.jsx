@@ -1,9 +1,11 @@
 import SignUp from "./component/signUp";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideAlert from "./../../component/sideAlert";
 import notifi from "/src/assets/notification.svg";
 import Forgotten from "./component/forgotten";
 import NewPass from "./component/newPass";
+import PASS from "/src/assets/pass.png";
+import error from "/src/assets/error.svg";
 
 function LogSign() {
   const theme = "#7150B7";
@@ -14,12 +16,16 @@ function LogSign() {
   const [forStatus, setForStatus] = useState(false);
   const [newPassPage, setpassPage] = useState(false);
   const [changeStatus, setChange] = useState(false);
+  const [notStatus, setNotChange] = useState(false);
 
   // Function to close the side alert after 2 seconds
   const handleCloseSideAlert = () => {
     setTimeout(() => setIdstatus(false), 1500);
   };
-
+  useEffect(() => {
+    setTimeout(() => setChange(false), 1500);
+    setTimeout(() => setNotChange(false), 1500);
+  }, [changeStatus, notStatus]);
   return (
     <>
       <main className=" h-screen w-screen bg-[#F0F2F5] flex flex-col lg:flex-row lg:gap-20 items-center justify-center">
@@ -117,13 +123,21 @@ function LogSign() {
             newPassPage={newPassPage}
             setpassPage={setpassPage}
             setChange={setChange}
+            setNotChange={setNotChange}
           />
         )}
         {changeStatus && (
           <SideAlert
-            icon={notifi}
+            icon={PASS}
             note={"password changed successful"}
-            color={"bg-green-500"}
+            color={"bg-green-400"}
+          />
+        )}
+        {notStatus && (
+          <SideAlert
+            icon={error}
+            note={"password changed unsuccessful"}
+            color={"bg-red-400"}
           />
         )}
       </main>
