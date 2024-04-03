@@ -1,23 +1,12 @@
 import Close from "/src/assets/close.svg";
-import SideAlert from "./sideAlert";
 import "./component.css";
 
-function PopUp({
-  css,
-  Title,
-  Click,
-  setClick,
-  Section,
-  misData,
-  error,
-  note,
-  color,
-}) {
+function PopUp({ css, Title, Click, setClick, Section, notification = null }) {
   return (
     <main
       className={`${
-        Click ? "flex animationAdd" : "hidden animationRemove"
-      } absolute inset-0 backdrop-blur items-center justify-center`}
+        Click ? "flex animationAdd" : "hidden popUpRemove"
+      } absolute  inset-0 backdrop-blur bg-[#2e2d2d5f] items-center justify-center transition-all duration-300`}
     >
       <section
         className={`${css} relative border pb-5 bg-white shadow rounded-lg`}
@@ -33,8 +22,7 @@ function PopUp({
         </div>
         {Section}
       </section>
-
-      {misData && <SideAlert icon={error} note={note} color={color} />}
+      {notification != null && notification}
     </main>
   );
 }

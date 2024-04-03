@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from "react";
 import PopUp from "../../../component/popUp";
-import React, { useState } from "react";
-
+import DropDown from "./../../../component/dropDown";
+import SideAlert from "./../../../component/sideAlert";
 import error from "/src/assets/error.svg";
 
 function SignUp({ createID, setCreateID, setIdstatus }) {
-  const theme = "#7150B7";
-  const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-[${theme}]`;
+  const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-theme transition-all duration-300`;
 
   const dates = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
@@ -23,70 +23,121 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
     "Dec",
   ];
 
-  let years = [];
   const currentYear = new Date().getFullYear();
-  for (let i = 0; i <= 100; i++) {
-    years.push(currentYear - i);
-  }
+  const years = Array.from({ length: 101 }, (_, i) => currentYear - i);
 
-  const Gender = ["Female", "Male", "Other"];
+  const genders = ["Female", "Male", "Other"];
 
   // State variables for input values
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [misData, setmisData] = useState(false);
+  const [gender, setGender] = useState("");
+  const [date, setDate] = useState(1);
+  const [month, setMonth] = useState("JAN");
+  const [year, setYear] = useState(2024);
 
-  // Function to close the side alert after 2 seconds
-  const handleCloseSideAlert = () => {
-    setTimeout(() => setmisData(false), 1500);
-  };
+  // State variables for notifications
+  const [notFill, setNotFill] = useState(false);
+  const [INpass, setInpass] = useState(false);
+  const [preFound, setPreFound] = useState(false);
+  const [otpSection, setOtpSection] = useState(false);
 
-  const submitHandeler = () => {
-    if (firstName != "" && surname != "" && mobile != "" && password != "") {
-      const userID = {
-        firstName: firstName,
-        lastName: surname,
-        fullName: firstName + " " + surname,
-        pass: password,
-        mobile: mobile,
-      };
+  const submitHandler = (e) => {
+    e.preventDefault(); // Prevent default form submission
 
-      localStorage.setItem("userID", JSON.stringify(userID));
-      setCreateID(false);
-      setIdstatus(true);
+    const dateOfBirth = `${date} ${month} ${year}`;
+    if (
+      firstName !== "" &&
+      surname !== "" &&
+      userName !== "" &&
+      password !== "" &&
+      gender !== ""
+    ) {
+      if (password.length >= 6) {
+        const createData = {
+          firstName: firstName,
+          surname: surname,
+          userID: userName,
+          password: password,
+          DOB: dateOfBirth,
+          gender: gender,
+        };
+        const allData = JSON.parse(localStorage.getItem("userDetails"));
+        if (allData) {
+          if (allData.userId === userName) {
+            setPreFound(true);
+          } else {
+            localStorage.setItem("allData", JSON.stringify(createData));
+            setCreateID(false);
+          }
+        } else {
+          localStorage.setItem("allData", JSON.stringify(createData));
+          setCreateID(false);
+        }
+      } else {
+        setInpass(true);
+      }
     } else {
-      setmisData(true);
-      handleCloseSideAlert();
+      setNotFill(true);
     }
   };
-  // Reset input fields when createID is false
-  React.useEffect(() => {
-    if (!createID) {
-      setFirstName("");
-      setSurname("");
-      setMobile("");
-      setPassword("");
-    }
-  }, [createID]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setNotFill(false);
+      setInpass(false);
+      setPreFound(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [notFill, INpass]);
 
   return (
     <PopUp
-      css={"w-[370px] md:w-[470px]"}
-      Title={"Sign Up"}
+      css="w-[370px] md:w-[470px]"
+      Title="Sign Up"
       Click={createID}
       setClick={setCreateID}
-      misData={misData}
-      error={error}
-      note={"fill all the information properly"}
-      color={"bg-red-400"}
-      Section={
+      notification={
+        // Notification section start
         <>
+          {notFill && (
+            <SideAlert
+              icon={error}
+              note="Fill all the information properly"
+              color="bg-red-400"
+              time={2000}
+              visible={true}
+            />
+          )}
+          {INpass && (
+            <SideAlert
+              icon={error}
+              note="Password must be at least 6 characters long"
+              color="bg-red-400"
+              time={2000}
+              visible={true}
+            />
+          )}
+          {preFound && (
+            <SideAlert
+              icon={error}
+              note="Try another username; it has a previous account."
+              color="bg-red-400"
+              time={2000}
+              visible={true}
+            />
+          )}
+        </>
+        // Notification section end
+      }
+      Section={
+        <main>
           <p className="px-5 opacity-60 pt-1">It's quick and easy</p>
           <hr className="my-4 border" />
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={submitHandler} // Call submitHandler directly without event.preventDefault()
             className="px-5 flex flex-col"
           >
             <div className="flex gap-2">
@@ -112,8 +163,8 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
               className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
               type="text"
               placeholder="Mobile number or email address"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
+              value={userName}
+              onChange={(e) => setUserName(e.target.value)}
               required
             />
             <input
@@ -125,48 +176,31 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
               required
             />
 
-            {/* date of birth */}
             <p className="font-light text-sm mb-1">Date of birth</p>
             <div className="flex gap-3 mb-3">
-              <select className={`${btn} py-2 w-full`}>
-                {dates.map((date) => (
-                  <option value={date} key={date}>
-                    {date}
-                  </option>
-                ))}
-              </select>
-              <select className={`${btn} py-2 w-full`}>
-                {months.map((month, index) => (
-                  <option value={month} key={index}>
-                    {month}
-                  </option>
-                ))}
-              </select>
-              <select className={`${btn} py-2 w-full`}>
-                {years.map((year) => (
-                  <option value={year} key={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
+              <DropDown arr={dates} getData={setDate} />
+              <DropDown arr={months} getData={setMonth} />
+              <DropDown arr={years} getData={setYear} />
             </div>
 
-            {/* gender */}
             <p className="font-light text-sm">Gender</p>
             <div className="flex gap-3 mb-3">
-              {Gender.map((item, index) => (
+              {genders.map((item, index) => (
                 <label
-                  htmlFor={item}
                   key={index}
                   className={`${btn} flex py-2 justify-between items-center gap-3 w-full`}
                 >
-                  <label htmlFor={item}>{item}</label>
-                  <input type="radio" name="gender" id={item} />
+                  <span>{item}</span>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value={item}
+                    onChange={(e) => setGender(e.target.value)}
+                  />
                 </label>
               ))}
             </div>
 
-            {/* terms and conditions */}
             <p className="text-[12px] font-thin">
               People who use our service may have uploaded your contact
               information to Friendzone. Learn more.
@@ -179,13 +213,13 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
             </p>
 
             <button
-              onClick={submitHandeler}
-              className={`${btn}  mt-5 py-1 px-10 bg-[#3eb227] hover:bg-[#3ca626] font-bold text-xl text-white`}
+              type="submit" // Ensure button type is submit
+              className={`${btn} mt-5 py-1 px-10 bg-secTheme hover:bg-secHoverTheme font-bold text-xl text-white`}
             >
               Sign Up
             </button>
           </form>
-        </>
+        </main>
       }
     />
   );

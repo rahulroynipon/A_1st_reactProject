@@ -8,20 +8,6 @@
   animation-duration: 600ms;
 }
 
-.sideNote {
-  animation-name: addsideNote;
-  animation-duration: 1.5s;
-}
-
-@keyframes addsideNote {
-  from {
-    width: 100%;
-  }
-  to {
-    width: 0%;
-  }
-}
-
 @keyframes popUp {
   from {
     opacity: 0;
@@ -38,4 +24,32 @@
   to {
     opacity: 0;
   }
+}
+
+/* animation for side note open 
+and close and indicate the notification */
+
+@keyframes timeLine {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Animation for showing the SideAlert */
+@keyframes addSide {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 80%;
+  }
+}
+
+/* Apply animation for showing the SideAlert */
+.visible {
+  animation-name: addSide;
+  animation-duration: 800ms;
 }
