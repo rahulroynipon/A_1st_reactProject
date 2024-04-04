@@ -5,8 +5,6 @@ import SideAlert from "./../../../component/sideAlert";
 import error from "/src/assets/error.svg";
 
 function SignUp({ createID, setCreateID, setIdstatus }) {
-  const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-theme transition-all duration-300`;
-
   const dates = Array.from({ length: 31 }, (_, i) => i + 1);
   const months = [
     "Jan",
@@ -143,7 +141,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
           >
             <div className="flex gap-2">
               <input
-                className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
+                className={`btn py-2 mb-3 bg-gray-100 w-full`}
                 type="text"
                 placeholder="First name"
                 value={firstName}
@@ -151,7 +149,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
                 required
               />
               <input
-                className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
+                className={`btn py-2 mb-3 bg-gray-100 w-full`}
                 type="text"
                 placeholder="Surname"
                 value={surname}
@@ -161,7 +159,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
             </div>
 
             <input
-              className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
+              className={`btn py-2 mb-3 bg-gray-100 w-full`}
               type="text"
               placeholder="Mobile number or email address"
               value={userName}
@@ -169,7 +167,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
               required
             />
             <input
-              className={`${btn} py-2 mb-3 bg-gray-100 w-full`}
+              className={`btn py-2 mb-3 bg-gray-100 w-full`}
               type="password"
               placeholder="New password"
               value={password}
@@ -189,7 +187,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
               {genders.map((item, index) => (
                 <label
                   key={index}
-                  className={`${btn} flex py-2 justify-between items-center gap-3 w-full`}
+                  className={`btn flex py-2 justify-between items-center gap-3 w-full`}
                 >
                   <span>{item}</span>
                   <input
@@ -215,7 +213,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
 
             <button
               type="submit" // Ensure button type is submit
-              className={`${btn} mt-5 py-1 px-10 bg-secTheme hover:bg-secHoverTheme font-bold text-xl text-white`}
+              className={`btn mt-5 py-1 px-10 bg-secTheme hover:bg-secHoverTheme font-bold text-xl text-white`}
             >
               Sign Up
             </button>

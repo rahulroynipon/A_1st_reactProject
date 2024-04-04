@@ -1,30 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SignUp from "./component/signUp";
 import FromIN from "./component/fromIN";
 import PopUp from "../../component/popUp";
 import SideAlert from "./../../component/sideAlert";
 import error from "/src/assets/error.svg";
-import passIcon from "/src/assets/password.svg";
+
+import OTPgen from "./../../hook/OtpGen";
+import Verified from "./component/IDVerify";
 
 function LogSign() {
-  const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-theme transition-all duration-300`;
-
   const [notify, setNotify] = useState(false);
   const [createID, setCreateID] = useState(false);
-  const [otpGen, setOTPgen] = useState(true);
-  const [reCount, setRecount] = useState(3);
+  const [otpGen, setOTPgen] = useState(false);
+  const [verify, setVerify] = useState(false);
+
+  const otp = useCallback(() => {
+    return OTPgen(6);
+  }, []);
 
   useEffect(() => {
+    if (!otpGen) {
+      setVerify(false);
+    }
+
     let timeoutId;
     if (notify) {
-      timeoutId = setTimeout(() => {
+      timeoutId = setTimeout((e) => {
         setNotify(false);
-      }, 30000);
+        setOTPgen(false);
+      }, 20000);
     }
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [notify]);
+  }, [notify, otpGen]);
 
   return (
     <main
@@ -55,48 +64,14 @@ function LogSign() {
       )}
 
       {otpGen && (
-        <PopUp
-          css="w-[370px] md:w-[470px]"
-          Title="ID verification"
-          Click={otpGen}
-          setClick={setOTPgen}
-          notification={
-            notify && (
-              <SideAlert
-                icon={passIcon}
-                note="Your OTP is"
-                color="bg-green-400"
-                time={30000}
-                visible={true}
-              />
-            )
-          }
-          Section={
-            <main className="px-10 mt-5">
-              <input
-                className={`${btn} py-2 w-full bg-gray-100`}
-                type="text"
-                placeholder="Enter the OTP"
-              />
-
-              <div className="flex justify-between items-center mt-3">
-                <button
-                  onClick={() => {
-                    setRecount(reCount - 1);
-                    setNotify(true); // Trigger notification when the button is clicked
-                  }}
-                  className={`${btn} py-1 text-center bg-theme hover:bg-themeHover font-semibold text-white transition-all`}
-                >
-                  Send({reCount})
-                </button>
-                <button
-                  className={`${btn} py-1 bg-theme hover:bg-themeHover font-semibold text-white`}
-                >
-                  Verify
-                </button>
-              </div>
-            </main>
-          }
+        <Verified
+          otpGen={otpGen}
+          setOTPgen={setOTPgen}
+          notify={notify}
+          otp={otp}
+          setNotify={setNotify}
+          setVerify={setVerify}
+          verify={verify}
         />
       )}
     </main>
