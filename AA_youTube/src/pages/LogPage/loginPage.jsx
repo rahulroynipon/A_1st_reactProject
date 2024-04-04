@@ -3,11 +3,13 @@ import SignUp from "./component/signUp";
 import FromIN from "./component/fromIN";
 import PopUp from "../../component/popUp";
 import SideAlert from "./../../component/sideAlert";
+import error from "/src/assets/error.svg";
+import passIcon from "/src/assets/password.svg";
 
 function LogSign() {
   const btn = `px-4 mb-2 border border-gray-300 rounded outline-none focus:ring-1 focus:ring-theme transition-all duration-300`;
 
-  const [notify, setNotify] = useState(0);
+  const [notify, setNotify] = useState(false);
   const [createID, setCreateID] = useState(false);
   const [otpGen, setOTPgen] = useState(true);
   const [reCount, setRecount] = useState(3);
@@ -16,8 +18,8 @@ function LogSign() {
     let timeoutId;
     if (notify) {
       timeoutId = setTimeout(() => {
-        setNotify(0);
-      }, 2000);
+        setNotify(false);
+      }, 30000);
     }
     return () => {
       clearTimeout(timeoutId);
@@ -58,7 +60,17 @@ function LogSign() {
           Title="ID verification"
           Click={otpGen}
           setClick={setOTPgen}
-          notification={<SideAlert />}
+          notification={
+            notify && (
+              <SideAlert
+                icon={passIcon}
+                note="Your OTP is"
+                color="bg-green-400"
+                time={30000}
+                visible={true}
+              />
+            )
+          }
           Section={
             <main className="px-10 mt-5">
               <input
@@ -71,8 +83,9 @@ function LogSign() {
                 <button
                   onClick={() => {
                     setRecount(reCount - 1);
+                    setNotify(true); // Trigger notification when the button is clicked
                   }}
-                  className={`${btn} w-[85px] py-1 text-center bg-theme hover:bg-themeHover font-semibold text-white transition-all`}
+                  className={`${btn} py-1 text-center bg-theme hover:bg-themeHover font-semibold text-white transition-all`}
                 >
                   Send({reCount})
                 </button>
