@@ -13,6 +13,7 @@ function LogSign() {
   const [createID, setCreateID] = useState(false);
   const [otpGen, setOTPgen] = useState(false);
   const [verify, setVerify] = useState(false);
+  const [IDcreateStatus, setIDcreateStatus] = useState(true);
 
   const otp = useCallback(() => {
     return OTPgen(6);
@@ -72,6 +73,7 @@ function LogSign() {
           setNotify={setNotify}
           setVerify={setVerify}
           verify={verify}
+          setIDcreateStatus={setIDcreateStatus}
         />
       )}
     </main>

@@ -11,6 +11,7 @@ function Verified({
   setNotify,
   setVerify,
   verify,
+  setIDcreateStatus,
 }) {
   const [sentOtp, setRecipetOpt] = useState("");
   const [Votp, setVotp] = useState("");
@@ -25,9 +26,11 @@ function Verified({
 
   const submitionHandeler = () => {
     if (sentOtp == Votp) {
+      setIDcreateStatus(true);
       setWrong(false);
       setOTPgen(false);
     } else {
+      setIDcreateStatus(false);
       setWrong(true);
     }
   };
