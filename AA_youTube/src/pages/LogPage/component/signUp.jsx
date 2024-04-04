@@ -35,14 +35,13 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [date, setDate] = useState(1);
-  const [month, setMonth] = useState("JAN");
+  const [month, setMonth] = useState("Jan");
   const [year, setYear] = useState(2024);
 
   // State variables for notifications
   const [notFill, setNotFill] = useState(false);
   const [INpass, setInpass] = useState(false);
   const [preFound, setPreFound] = useState(false);
-  const [otpSection, setOtpSection] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault(); // Prevent default form submission
@@ -59,21 +58,23 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
         const createData = {
           firstName: firstName,
           surname: surname,
-          userID: userName,
+          userId: userName,
           password: password,
           DOB: dateOfBirth,
           gender: gender,
         };
-        const allData = JSON.parse(localStorage.getItem("userDetails"));
+        const allData = JSON.parse(localStorage.getItem("allData"));
         if (allData) {
           if (allData.userId === userName) {
             setPreFound(true);
           } else {
             localStorage.setItem("allData", JSON.stringify(createData));
+            setIdstatus(true);
             setCreateID(false);
           }
         } else {
           localStorage.setItem("allData", JSON.stringify(createData));
+          setIdstatus(true);
           setCreateID(false);
         }
       } else {
@@ -91,7 +92,7 @@ function SignUp({ createID, setCreateID, setIdstatus }) {
       setPreFound(false);
     }, 2000);
     return () => clearTimeout(timer);
-  }, [notFill, INpass]);
+  }, [notFill, INpass, preFound]);
 
   return (
     <PopUp
