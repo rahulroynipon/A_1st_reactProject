@@ -4,36 +4,53 @@ import SideAlert from "../../../component/sideAlert";
 import passIcon from "/src/assets/password.svg";
 
 function Verified({
+  otp,
   otpGen,
   setOTPgen,
   notify,
-  otp,
   setNotify,
   setVerify,
   verify,
-  setIDcreateStatus,
 }) {
   const [sentOtp, setRecipetOpt] = useState("");
-  const [Votp, setVotp] = useState("");
   const [wrong, setWrong] = useState(false);
+  const [otpValue, setOtpValue] = useState(""); // State to store the generated OTP
 
-  const sentBtnHandeler = () => {
+  // Function to generate OTP when the "Send" button is clicked
+  const sentBtnHandler = () => {
+    // Generate OTP only if it's not already generated
+    if (!otpValue) {
+      const VoTp = otp();
+      setOtpValue(VoTp);
+    }
+
     setNotify(true);
     setVerify(true);
-    const VoTp = otp();
-    setVotp(VoTp);
   };
 
-  const submitionHandeler = () => {
-    if (sentOtp == Votp) {
-      setIDcreateStatus(true);
+  // Function to handle verification
+  const submitionHandler = () => {
+    if (sentOtp === otpValue) {
       setWrong(false);
       setOTPgen(false);
     } else {
-      setIDcreateStatus(false);
       setWrong(true);
+      // Set timeout to remove local storage data after 2 minutes if OTP is wrong
+      setTimeout(() => {
+        localStorage.removeItem("allData");
+      }, 19950); // 2 minutes in milliseconds
     }
   };
+
+  // Cleanup function to remove local storage data when component unmounts
+  useEffect(() => {
+    return () => {
+      // Check if the popup is open (verify is true)
+      if (!otpGen) {
+        localStorage.removeItem("allData");
+      }
+    };
+  }, []);
 
   return (
     <PopUp
@@ -45,7 +62,7 @@ function Verified({
         notify && (
           <SideAlert
             icon={passIcon}
-            note={`Your OTP is ${Votp}`}
+            note={`Your OTP is ${otpValue}`}
             color="bg-green-400"
             time={20000}
             visible={true}
@@ -55,13 +72,16 @@ function Verified({
       Section={
         <main className="px-10 mt-5">
           <input
-            className={`btn py-2 w-full bg-gray-100`}
+            className={`btn py-2 w-full bg-gray-100 ${
+              verify && "ring-1 ring-theme"
+            }`}
             type="text"
-            placeholder="Enter the OTP"
+            placeholder={`${verify ? "Enter the OTP" : "Disable"}`}
             value={sentOtp}
             onChange={(e) => {
               setRecipetOpt(e.target.value);
             }}
+            disabled={!verify} // Disable the input field if verification hasn't been triggered
           />
 
           <p className="text-sm font-thin">
@@ -72,14 +92,14 @@ function Verified({
           <div className="flex items-center justify-center mt-3 transition-all duration-300">
             {verify ? (
               <button
-                onClick={submitionHandeler}
+                onClick={submitionHandler}
                 className={`btn py-1 bg-theme hover:bg-themeHover font-semibold text-white`}
               >
                 Verify
               </button>
             ) : (
               <button
-                onClick={sentBtnHandeler}
+                onClick={sentBtnHandler}
                 className={`btn py-1 text-center bg-theme hover:bg-themeHover font-semibold text-white transition-all`}
               >
                 Send
